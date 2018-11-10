@@ -23,6 +23,7 @@
         "angular-aria": "1.7.2",
         "angular-block-ui": "0.2.2",
         "angular-cookies": "1.7.2",
+        "angular-gage": "^0.1.0",
         "angular-highlightjs": "0.7.1",
         "angular-jwt": "0.1.10",
         "angular-material": "1.1.10",
@@ -30,13 +31,13 @@
         "angular-messages": "1.7.2",
         "angular-resource": "1.7.2",
         "angular-sanitize": "1.7.2",
+        "angular-spectrum-colorpicker": "1.4.5",
         "gulp-angular-templatecache": "2.2.1",
         "jquery": "3.3.1",
         "justgage": "1.2.2",
         "md-color-picker": "0.2.6",
         "raphael": "2.2.7",
         "smoothscroll-polyfill": "0.4.3",
-        "angular-spectrum-colorpicker": "1.4.5",
         "zxcvbn": "4.4.2"
     },
     "devDependencies": {

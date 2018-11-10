@@ -8,6 +8,7 @@ global.Raphael = require('raphael');
 // Module loading
 require('angular');
 require('justgage');
+require('angular-gage/dist/angular-gage');
 require('smoothscroll-polyfill').polyfill();
 require('angular-animate');
 require('angular-sanitize');
