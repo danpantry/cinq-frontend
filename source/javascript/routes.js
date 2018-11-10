@@ -1,8 +1,6 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor')
-    .config(config);
+angular.module('cloud-inquisitor').config(config);
 
 config.$inject = ['$stateProvider', '$urlServiceProvider'];
 
@@ -29,12 +27,11 @@ function config($stateProvider, $urlServiceProvider) {
             url: '/dashboard',
             component: 'dashboard',
             resolve: {
-                result: (Dashboard) => {
+                result: Dashboard => {
                     return Dashboard.get();
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Instances
@@ -45,7 +42,8 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('instance.list', {
-            url: '/instance/list?{page:int}&{count:int}&{accounts}&{regions}&{state}',
+            url:
+                '/instance/list?{page:int}&{count:int}&{accounts}&{regions}&{state}',
             params: {
                 page: 1,
                 count: 100,
@@ -74,8 +72,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return EC2Instance.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Accounts
@@ -147,8 +144,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return stateParams($transition$);
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Required Tags
@@ -159,8 +155,9 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('requiredTags.list', {
-            url: '/requiredTags/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&' +
-            '{requiredTags:string}&{state:string}',
+            url:
+                '/requiredTags/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&' +
+                '{requiredTags:string}&{state:string}',
             params: {
                 page: 1,
                 count: 100,
@@ -180,7 +177,8 @@ function config($stateProvider, $urlServiceProvider) {
             }
         })
         .state('requiredTags.shutdown', {
-            url: '/requiredTags/shutdown?{page:int}&{count:int}&{accounts:string}&{regions:string}',
+            url:
+                '/requiredTags/shutdown?{page:int}&{count:int}&{accounts:string}&{regions:string}',
             params: {
                 page: 1,
                 count: 100,
@@ -199,57 +197,56 @@ function config($stateProvider, $urlServiceProvider) {
                     return RequiredTagAdmin.query(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Instance Age
-    $stateProvider
-        .state('instanceAge', {
-            parent: 'main',
-            url: '/instanceAge?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}&{age:int}',
-            params: {
-                page: 1,
-                count: 100,
-                accounts: [],
-                regions: [],
-                state: undefined,
-                age: 730
+    $stateProvider.state('instanceAge', {
+        parent: 'main',
+        url:
+            '/instanceAge?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}&{age:int}',
+        params: {
+            page: 1,
+            count: 100,
+            accounts: [],
+            regions: [],
+            state: undefined,
+            age: 730
+        },
+        component: 'instanceAge',
+        resolve: {
+            params: $transition$ => {
+                return stateParams($transition$);
             },
-            component: 'instanceAge',
-            resolve: {
-                params: $transition$ => {
-                    return stateParams($transition$);
-                },
-                result: (InstanceAge, $transition$) => {
-                    return InstanceAge.get(stateParams($transition$));
-                }
+            result: (InstanceAge, $transition$) => {
+                return InstanceAge.get(stateParams($transition$));
             }
-        });
+        }
+    });
     //endregion
 
     //region Volume Audit
-    $stateProvider
-        .state('volumeAudit', {
-            parent: 'main',
-            url: '/volumeAudit?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}',
-            params: {
-                page: 1,
-                count: 100,
-                accounts: [],
-                regions: [],
-                state: undefined
+    $stateProvider.state('volumeAudit', {
+        parent: 'main',
+        url:
+            '/volumeAudit?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}',
+        params: {
+            page: 1,
+            count: 100,
+            accounts: [],
+            regions: [],
+            state: undefined
+        },
+        component: 'volumeAudit',
+        resolve: {
+            params: $transition$ => {
+                return stateParams($transition$);
             },
-            component: 'volumeAudit',
-            resolve: {
-                params: $transition$ => {
-                    return stateParams($transition$);
-                },
-                result: (VolumeAudit, $transition$) => {
-                    return VolumeAudit.get(stateParams($transition$));
-                }
+            result: (VolumeAudit, $transition$) => {
+                return VolumeAudit.get(stateParams($transition$));
             }
-        });
+        }
+    });
     //endregion
 
     //region Auth
@@ -259,6 +256,7 @@ function config($stateProvider, $urlServiceProvider) {
             parent: 'main',
             template: '<ui-view/>'
         })
+        // This route is used for username and password authentication
         .state('auth.login', {
             url: '/login',
             templateUrl: 'partials/auth/login.html',
@@ -280,8 +278,7 @@ function config($stateProvider, $urlServiceProvider) {
         .state('auth.redirect', {
             url: '/auth/redirect',
             component: 'authRedirect'
-        })
-    ;
+        });
     //endregion
 
     //region Logs
@@ -319,100 +316,102 @@ function config($stateProvider, $urlServiceProvider) {
                     return LogEvent.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Domain Hijacking
-    $stateProvider
-        .state('domainHijacking', {
-            parent: 'main',
-            url: '/domainhijacking?{page:int}&{count:int}&{fixed:bool}',
-            params: {
-                page: 1,
-                count: 25,
-                fixed: false
+    $stateProvider.state('domainHijacking', {
+        parent: 'main',
+        url: '/domainhijacking?{page:int}&{count:int}&{fixed:bool}',
+        params: {
+            page: 1,
+            count: 25,
+            fixed: false
+        },
+        component: 'domainHijacking',
+        resolve: {
+            params: $transition$ => {
+                return stateParams($transition$);
             },
-            component: 'domainHijacking',
-            resolve: {
-                params: $transition$ => {
-                    return stateParams($transition$);
-                },
-                result: (DomainHijackIssue, $transition$) => {
-                    return DomainHijackIssue.query(stateParams($transition$));
-                }
+            result: (DomainHijackIssue, $transition$) => {
+                return DomainHijackIssue.query(stateParams($transition$));
             }
-        });
+        }
+    });
     //endregion
 
     //region Search
-    $stateProvider
-        .state('search', {
-            parent: 'main',
-            url: '/search/?{keywords:string}&{page:int}&{count:int}&{partial:bool}' +
+    $stateProvider.state('search', {
+        parent: 'main',
+        url:
+            '/search/?{keywords:string}&{page:int}&{count:int}&{partial:bool}' +
             '&{resourceTypes:int}&{accounts:int}&{regions:string}',
-            params: {
-                page: 1,
-                count: 100,
-                partial: true,
-                accounts: {
-                    array: true,
-                    value: []
-                },
-                regions: {
-                    array: true,
-                    value: []
-                },
-                keywords: undefined,
-                resourceTypes: {
-                    array: true,
-                    value: []
-                }
+        params: {
+            page: 1,
+            count: 100,
+            partial: true,
+            accounts: {
+                array: true,
+                value: []
             },
-            component: 'search',
-            resolve: {
-                onSearch: Search => {
-                    return Search.get;
-                },
-                params: $transition$ => {
-                    let params = stateParams($transition$);
-                    if (!Array.isArray(params.accounts)) {
-                        params.accounts = [params.accounts];
-                    }
+            regions: {
+                array: true,
+                value: []
+            },
+            keywords: undefined,
+            resourceTypes: {
+                array: true,
+                value: []
+            }
+        },
+        component: 'search',
+        resolve: {
+            onSearch: Search => {
+                return Search.get;
+            },
+            params: $transition$ => {
+                let params = stateParams($transition$);
+                if (!Array.isArray(params.accounts)) {
+                    params.accounts = [params.accounts];
+                }
 
-                    if (!Array.isArray(params.regions)) {
-                        params.regions = [params.regions];
-                    }
+                if (!Array.isArray(params.regions)) {
+                    params.regions = [params.regions];
+                }
 
-                    if (!Array.isArray(params.resourceTypes)) {
-                        params.resourceTypes = [params.resourceTypes];
-                    }
+                if (!Array.isArray(params.resourceTypes)) {
+                    params.resourceTypes = [params.resourceTypes];
+                }
 
-                    return params;
-                },
-                result: (Search, $transition$) => {
-                    let params = stateParams($transition$);
-                    if (!Array.isArray(params.accounts)) {
-                        params.accounts = [params.accounts];
-                    }
+                return params;
+            },
+            result: (Search, $transition$) => {
+                let params = stateParams($transition$);
+                if (!Array.isArray(params.accounts)) {
+                    params.accounts = [params.accounts];
+                }
 
-                    if (!Array.isArray(params.regions)) {
-                        params.regions = [params.regions];
-                    }
+                if (!Array.isArray(params.regions)) {
+                    params.regions = [params.regions];
+                }
 
-                    if (!Array.isArray(params.resourceTypes)) {
-                        params.resourceTypes = [params.resourceTypes];
-                    }
+                if (!Array.isArray(params.resourceTypes)) {
+                    params.resourceTypes = [params.resourceTypes];
+                }
 
-                    if (params.keywords !== undefined || params.resourceTypes.length > 0 ||
-                        params.accounts.length > 0 || params.regions.length > 0) {
-                        return Search.get(params);
-                    } else {
-                        return undefined;
-                    }
+                if (
+                    params.keywords !== undefined ||
+                    params.resourceTypes.length > 0 ||
+                    params.accounts.length > 0 ||
+                    params.regions.length > 0
+                ) {
+                    return Search.get(params);
+                } else {
+                    return undefined;
                 }
             }
-        });
+        }
+    });
     //endregion
 
     //region Email
@@ -453,8 +452,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return Email.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Config
@@ -547,8 +545,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return stateParams($transition$);
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region DNS
@@ -591,8 +588,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return DNSZone.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Users
@@ -648,8 +644,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return User.metadata();
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Roles
@@ -670,7 +665,7 @@ function config($stateProvider, $urlServiceProvider) {
                 onRoleDelete: Role => {
                     return Role.delete;
                 },
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (Role, $transition$) => {
@@ -684,7 +679,7 @@ function config($stateProvider, $urlServiceProvider) {
             resolve: {
                 onRoleCreate: Role => {
                     return Role.create;
-                },
+                }
             }
         })
         .state('role.edit', {
@@ -694,15 +689,14 @@ function config($stateProvider, $urlServiceProvider) {
                 onRoleUpdate: Role => {
                     return Role.update;
                 },
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (Role, $transition$) => {
                     return Role.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region Templates
@@ -722,7 +716,7 @@ function config($stateProvider, $urlServiceProvider) {
                 onTemplateImport: Template => {
                     return Template.import;
                 },
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (Template, $transition$) => {
@@ -736,7 +730,7 @@ function config($stateProvider, $urlServiceProvider) {
             resolve: {
                 onTemplateCreate: Template => {
                     return Template.create;
-                },
+                }
             }
         })
         .state('template.edit', {
@@ -746,15 +740,14 @@ function config($stateProvider, $urlServiceProvider) {
                 onTemplateUpdate: Template => {
                     return Template.update;
                 },
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (Template, $transition$) => {
                     return Template.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region EBS Volumes
@@ -765,7 +758,8 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('ebs.list', {
-            url: '/ebs/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}&{type:string}',
+            url:
+                '/ebs/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{state:string}&{type:string}',
             params: {
                 page: 1,
                 count: 100,
@@ -788,15 +782,14 @@ function config($stateProvider, $urlServiceProvider) {
             url: '/ebs/details/{resourceId:string}',
             component: 'ebsDetails',
             resolve: {
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (EBSVolume, $transition$) => {
                     return EBSVolume.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     // region VPCs
@@ -807,8 +800,9 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('vpc.list', {
-            url: '/vpc/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{vpcId:string}&' +
-            '{cidrV4:string}&{vpcFlowLogsStatus:string}',
+            url:
+                '/vpc/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{vpcId:string}&' +
+                '{cidrV4:string}&{vpcFlowLogsStatus:string}',
             params: {
                 page: 1,
                 count: 100,
@@ -827,8 +821,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return VPC.query(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     // region S3 Buckets
@@ -839,15 +832,16 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('s3.list', {
-            url: '/s3/list?{page:int}&{count:int}&{accounts:string}&{location:string}&{resourceId:string}&' +
-            '{websiteEnabled:string}',
+            url:
+                '/s3/list?{page:int}&{count:int}&{accounts:string}&{location:string}&{resourceId:string}&' +
+                '{websiteEnabled:string}',
             params: {
                 page: 1,
                 count: 100,
                 accounts: [],
                 location: [],
                 resourceId: undefined,
-                websiteEnabled: undefined,
+                websiteEnabled: undefined
             },
             component: 's3List',
             resolve: {
@@ -858,8 +852,7 @@ function config($stateProvider, $urlServiceProvider) {
                     return S3Bucket.query(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region AuditLog
@@ -870,7 +863,8 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view></ui-view>'
         })
         .state('auditlog.list', {
-            url: '/auditlog/list?{page:int}&{count:int}&{events:string}&{actors:string}',
+            url:
+                '/auditlog/list?{page:int}&{count:int}&{events:string}&{actors:string}',
             params: {
                 page: 1,
                 count: 100,
@@ -891,15 +885,14 @@ function config($stateProvider, $urlServiceProvider) {
             url: '/auditlog/details/{auditLogEventId:int}',
             component: 'auditLogDetails',
             resolve: {
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (AuditLog, $transition$) => {
                     return AuditLog.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     //region ELBs
@@ -910,7 +903,8 @@ function config($stateProvider, $urlServiceProvider) {
             template: '<ui-view/>'
         })
         .state('elb.list', {
-            url: '/elb/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{numInstances:int}',
+            url:
+                '/elb/list?{page:int}&{count:int}&{accounts:string}&{regions:string}&{numInstances:int}',
             params: {
                 page: 1,
                 count: 100,
@@ -932,15 +926,14 @@ function config($stateProvider, $urlServiceProvider) {
             url: '/elb/details/{resourceId:string}',
             component: 'elbDetails',
             resolve: {
-                params: ($transition$) => {
+                params: $transition$ => {
                     return stateParams($transition$);
                 },
                 result: (ELB, $transition$) => {
                     return ELB.get(stateParams($transition$));
                 }
             }
-        })
-    ;
+        });
     //endregion
 
     $urlServiceProvider.rules.otherwise('/dashboard');
@@ -957,7 +950,7 @@ function stateParams(trans) {
         if (val === null || val === undefined) {
             output[key] = val;
         } else {
-            if (typeof(val) === 'string') {
+            if (typeof val === 'string') {
                 val = val.trim();
             }
             if (val === '-' || val === '') {

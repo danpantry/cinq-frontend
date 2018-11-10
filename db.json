@@ -1,13 +1,13 @@
 {
-  "metadata": {
-    "data": {
-      "accounts": [],
-      "accountTypes": [],
-      "regions": [],
-      "notifiers": [],
-      "menuItems": {},
-      "currentUser": {},
-      "resourceTypes": {}
+    "metadata": {
+        "data": {
+            "accounts": [],
+            "accountTypes": [],
+            "regions": [],
+            "notifiers": [],
+            "menuItems": {},
+            "currentUser": {},
+            "resourceTypes": {}
+        }
     }
-  }
 }

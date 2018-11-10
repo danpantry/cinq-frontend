@@ -6,9 +6,9 @@ angular
         bindings: {},
         controller: AuthRedirectController,
         controllerAs: 'vm',
-        templateUrl: 'auth/redirect.html'
+        template: require('./redirect.html')
     })
-;
+    ;
 
 AuthRedirectController.$inject = ['Utils'];
 /**

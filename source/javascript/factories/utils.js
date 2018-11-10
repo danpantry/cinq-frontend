@@ -1,9 +1,6 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.factories')
-    .factory('Utils', Utils)
-;
+angular.module('cloud-inquisitor.factories').factory('Utils', Utils);
 
 /**
  * Utils type
@@ -61,7 +58,7 @@ function Utils($injector, $window, Session) {
         validateEmail: validateEmail,
         getAccountTypeProperties: getAccountTypeProperties,
         getAccountTypePropertyName: getAccountTypePropertyName,
-        getAccountTypePropertyType: getAccountTypePropertyType,
+        getAccountTypePropertyType: getAccountTypePropertyType
     };
 
     //region Functions
@@ -71,7 +68,7 @@ function Utils($injector, $window, Session) {
      * @returns {Array} New array without any empty values
      */
     function cleanArray(inArray) {
-        let newArr = [ ];
+        let newArr = [];
         for (let nval of inArray) {
             nval = nval.trim();
             if (nval && nval.length > 0) {
@@ -107,7 +104,7 @@ function Utils($injector, $window, Session) {
             if (val === null || val === undefined) {
                 output[key] = val;
             } else {
-                if (typeof(val) === 'string') {
+                if (typeof val === 'string') {
                     val = val.trim();
                 }
                 if (val === '-' || val === '') {
@@ -136,7 +133,7 @@ function Utils($injector, $window, Session) {
      * @returns {string|undefined} Value of the Name tag if present. If the name is not present and `fallback` is true, the instance
      * id will be returned, or false.
      */
-    function getResourceName(resource, fallback, includeId=true) {
+    function getResourceName(resource, fallback, includeId = true) {
         if (fallback === undefined) {
             fallback = true;
         }
@@ -146,8 +143,13 @@ function Utils($injector, $window, Session) {
         }
 
         for (let tag of resource.tags) {
-            if (tag.key.toLowerCase() === 'name' && tag.value.trim().length > 0) {
-                return includeId ? tag.value + ' (' + resource.resourceId + ')' : tag.value;
+            if (
+                tag.key.toLowerCase() === 'name' &&
+                tag.value.trim().length > 0
+            ) {
+                return includeId
+                    ? tag.value + ' (' + resource.resourceId + ')'
+                    : tag.value;
             }
         }
 
@@ -167,7 +169,10 @@ function Utils($injector, $window, Session) {
         if (instance === undefined) {
             return false;
         }
-        return ((instance.properties.publicIp && instance.properties.publicIp.trim().length > 0));
+        return (
+            instance.properties.publicIp &&
+            instance.properties.publicIp.trim().length > 0
+        );
     }
 
     /**¬
@@ -181,9 +186,9 @@ function Utils($injector, $window, Session) {
 
         if (date instanceof Date) {
             then = date;
-        } else if (typeof(date) === 'string') {
+        } else if (typeof date === 'string') {
             then = Date.parse(date).getTime();
-        } else if (typeof(date) === 'number') {
+        } else if (typeof date === 'number') {
             then = new Date(date).getTime();
         } else {
             return false;
@@ -203,7 +208,7 @@ function Utils($injector, $window, Session) {
     function formatDuration(inStart, inEnd, inFallback) {
         let start = Date.parse(inStart),
             end,
-            ret = [ ];
+            ret = [];
 
         if (!inEnd) {
             if (inFallback) {
@@ -222,10 +227,21 @@ function Utils($injector, $window, Session) {
         let minutes = Math.floor((dur %= 3600) / 60);
         let seconds = Math.floor(dur % 60);
 
-        if (weeks) { ret.push(weeks + ' weeks'); }
-        if (days) { ret.push(days + ' days'); }
+        if (weeks) {
+            ret.push(weeks + ' weeks');
+        }
+        if (days) {
+            ret.push(days + ' days');
+        }
 
-        ret.push(hours + ' hours, ' + minutes + ' minutes and ' + seconds + ' seconds');
+        ret.push(
+            hours +
+                ' hours, ' +
+                minutes +
+                ' minutes and ' +
+                seconds +
+                ' seconds'
+        );
         return ret.join(', ');
     }
 
@@ -236,12 +252,12 @@ function Utils($injector, $window, Session) {
      */
     function toPrettyJSON(obj) {
         try {
-            if (typeof(obj) === 'string') {
+            if (typeof obj === 'string') {
                 return JSON.stringify(JSON.parse(obj), null, 4);
             } else {
                 return JSON.stringify(obj, null, 4);
             }
-        } catch (err)  {
+        } catch (err) {
             return 'INVALID JSON: ' + err;
         }
     }
@@ -252,14 +268,13 @@ function Utils($injector, $window, Session) {
      * @param {string} msgType Message type, can be one of 'error', 'warning', 'success' or 'info'
      * @param {string} pos Position of the message, default 'top center' if none is provided
      */
-    function toast(msg, msgType, pos='top center') {
+    function toast(msg, msgType, pos = 'top center') {
         let $mdToast = $injector.get('$mdToast');
         let toast = $mdToast
             .simple()
             .textContent(msg)
             .position(pos)
-            .action('OK')
-        ;
+            .action('OK');
 
         if (['error', 'warning', 'success', 'info'].indexOf(msgType) !== -1) {
             toast.theme('audit-' + msgType);
@@ -314,7 +329,7 @@ function Utils($injector, $window, Session) {
         const session = $injector.get('Session');
         const roles = session.get('roles') || [];
 
-        return (roles.indexOf('Admin') > -1 || roles.indexOf(requiredRole) > -1);
+        return roles.indexOf('Admin') > -1 || roles.indexOf(requiredRole) > -1;
     }
 
     /**
@@ -323,8 +338,15 @@ function Utils($injector, $window, Session) {
      */
     function isAuthed() {
         if ($window.localStorage.hasOwnProperty('cloud-inquisitor')) {
-            let data = JSON.parse($window.localStorage.getItem('cloud-inquisitor'));
-            if (data && data.hasOwnProperty('auth') && data.hasOwnProperty('csrf') && data.hasOwnProperty('expiry')) {
+            let data = JSON.parse(
+                $window.localStorage.getItem('cloud-inquisitor')
+            );
+            if (
+                data &&
+                data.hasOwnProperty('auth') &&
+                data.hasOwnProperty('csrf') &&
+                data.hasOwnProperty('expiry')
+            ) {
                 return !dateExpired(data.expiry);
             } else {
                 return false;
@@ -344,11 +366,14 @@ function Utils($injector, $window, Session) {
         session.del('authed');
         $window.localStorage.removeItem('cloud-inquisitor');
         $rootScope.$broadcast('auth-logout');
+
         $http.get('/auth/login').then(
             response => {
                 if (response.data.hasOwnProperty('state')) {
+                    // This path is followed if we are not using SSO
                     goto(response.data.state);
                 } else if (response.data.hasOwnProperty('url')) {
+                    // This path is followed for SSO
                     redirect(response.data.url);
                 }
             },
@@ -414,10 +439,13 @@ function Utils($injector, $window, Session) {
     function showDetails(resource) {
         const route = resourceTypeToRoute(resource.resourceType);
         if (route) {
-            goto(route, {resourceId: resource.resourceId});
+            goto(route, { resourceId: resource.resourceId });
         } else {
             const typeName = getResourceTypeName(resource.resourceType);
-            toast('Details for ' +  typeName + ' objects not yet supported', 'warning');
+            toast(
+                'Details for ' + typeName + ' objects not yet supported',
+                'warning'
+            );
         }
     }
 
