@@ -3,7 +3,6 @@
 require('angular-spectrum-colorpicker');
 
 angular.module('cloud-inquisitor.components', [
-    'templates',
     'angularSpectrumColorpicker'
 ]);
 
@@ -30,3 +29,4 @@ require('./users');
 require('./volumeaudit');
 require('./vpc');
 require('./elb');
+
