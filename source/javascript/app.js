@@ -17,6 +17,7 @@ require('./services');
 require('./filters');
 require('./directives');
 require('./components');
+require('./styles');
 
 // Declare app level module which depends on filters, and services
 angular
@@ -42,7 +43,7 @@ angular
     .config(config)
     .constant('API_PATH', '/api/v1/')
     .run(run)
-;
+    ;
 
 require('./routes');
 require('./constants');
@@ -55,9 +56,9 @@ function config($locationProvider, $httpProvider, $mdThemingProvider, blockUICon
     //region Configure angular-material themes
     $mdThemingProvider
         .theme('default')
-            .primaryPalette('blue-grey')
-            .accentPalette('orange')
-    ;
+        .primaryPalette('blue-grey')
+        .accentPalette('orange')
+        ;
 
     $mdThemingProvider.theme('audit-error');
     $mdThemingProvider.theme('audit-warning');
@@ -67,7 +68,7 @@ function config($locationProvider, $httpProvider, $mdThemingProvider, blockUICon
 
     $locationProvider.html5Mode(true);
     blockUIConfig.delay = 250;
-    hljsServiceProvider.setOptions({tabReplace: '    '});
+    hljsServiceProvider.setOptions({ tabReplace: '    ' });
 }
 
 run.$inject = ['$state', 'Utils', '$transitions', '$rootScope'];
