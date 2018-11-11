@@ -23,7 +23,7 @@ app.get('/auth/login', (_, res) => {
 app.post('/auth/local/login', (_, res) => {
     // Allow pass-through authentication for now
     const payload = {
-        roles: [ROLE_ADMIN, ROLE_USER]
+        roles: ['Admin', 'User']
     };
     const authToken = jwt.sign(payload, JWT_SECRET);
 
