@@ -1,4 +1,22 @@
 {
+    "stats": {
+        "stats": {
+            "ec2Instances": {
+                "running": 0,
+                "total": 0,
+                "stopped": 0
+            },
+            "instancesWithPublicIps": 0,
+            "rfc26Compliance": [
+                {
+                    "accountName": "acc-1",
+                    "percent": 100,
+                    "compliantResources": 1,
+                    "taggableResources": 1
+                }
+            ]
+        }
+    },
     "metadata": {
         "accounts": [],
         "accountTypes": [],
