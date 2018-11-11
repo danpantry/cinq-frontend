@@ -1,20 +1,22 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('search', {
-        bindings: {
-            onSearch: '<',
-            params: '<',
-            result: '<'
-        },
-        controller: SearchController,
-        controllerAs: 'vm',
-        templateUrl: 'search/search.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('search', {
+    bindings: {
+        onSearch: '<',
+        params: '<',
+        result: '<'
+    },
+    controller: SearchController,
+    controllerAs: 'vm',
+    template: require('./search.html')
+});
 
-SearchController.$inject = ['$mdDialog', '$document', 'Utils', 'MetadataService'];
+SearchController.$inject = [
+    '$mdDialog',
+    '$document',
+    'Utils',
+    'MetadataService'
+];
 function SearchController($mdDialog, $document, Utils, MetadataService) {
     const vm = this;
     vm.resources = undefined;
@@ -39,7 +41,7 @@ function SearchController($mdDialog, $document, Utils, MetadataService) {
         // Workaround for a bug where the resourceTypes param might be set as a single int, instead of a list
         // which breaks the dropdown getting prefilled if only one resource type was selected
         if (!Array.isArray(vm.params.resourceTypes)) {
-            if (typeof(vm.params.resourceTypes) === 'number') {
+            if (typeof vm.params.resourceTypes === 'number') {
                 vm.params.resourceTypes = [vm.params.resourceTypes];
             } else {
                 vm.params.resourceTypes = [];
@@ -62,11 +64,7 @@ function SearchController($mdDialog, $document, Utils, MetadataService) {
             vm.resourceCount = 0;
             vm.params.page = 1;
 
-            vm.onSearch(
-                vm.params,
-                onLoadSuccess,
-                Utils.onLoadFailure
-            );
+            vm.onSearch(vm.params, onLoadSuccess, Utils.onLoadFailure);
             vm.updatePath();
         }
     }
@@ -124,8 +122,10 @@ function SearchController($mdDialog, $document, Utils, MetadataService) {
 
     function valid() {
         return (
-            vm.params.keywords !== undefined || vm.params.resourceTypes.length > 0  ||
-            vm.params.accounts.length > 0 || vm.params.regions.length > 0
+            vm.params.keywords !== undefined ||
+            vm.params.resourceTypes.length > 0 ||
+            vm.params.accounts.length > 0 ||
+            vm.params.regions.length > 0
         );
     }
     //endregion
