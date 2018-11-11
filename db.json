@@ -1,0 +1,121 @@
+{
+    "metadata": {
+        "accounts": [],
+        "accountTypes": [],
+        "regions": [],
+        "notifiers": [],
+
+        "menuItems": {
+            "default": {
+                "order": 10,
+                "required_role": "User",
+                "items": [
+                    {
+                        "name": "Dashboard",
+                        "state": "dashboard",
+                        "order": 10
+                    }
+                ]
+            },
+            "browse": {
+                "order": 20,
+                "name": "Browse",
+                "required_role": "User",
+                "items": [
+                    {
+                        "name": "Search",
+                        "state": "search",
+                        "args": {
+                            "page": 1
+                        },
+                        "order": 10
+                    }
+                ]
+            },
+            "reports": {
+                "order": 30,
+                "name": "Reports",
+                "required_role": "User",
+                "items": []
+            },
+            "admin": {
+                "order": 99,
+                "name": "Admin",
+                "required_role": "Admin",
+                "items": [
+                    {
+                        "name": "Accounts",
+                        "state": "account.list",
+                        "order": 1
+                    },
+                    {
+                        "name": "Config",
+                        "state": "config.list",
+                        "order": 2
+                    },
+                    {
+                        "name": "Users",
+                        "state": "user.list",
+                        "order": 3,
+                        "args": {
+                            "page": 1,
+                            "count": 50
+                        }
+                    },
+                    {
+                        "name": "Roles",
+                        "state": "role.list",
+                        "args": {
+                            "page": 1,
+                            "count": 25
+                        },
+                        "order": 4
+                    },
+                    {
+                        "name": "Templates",
+                        "state": "template.list",
+                        "order": 4
+                    },
+                    {
+                        "name": "Emails",
+                        "state": "email.list",
+                        "args": {
+                            "page": 1,
+                            "count": 100
+                        },
+                        "order": 70
+                    },
+                    {
+                        "name": "Audit Log",
+                        "state": "auditlog.list",
+                        "args": {
+                            "page": 1,
+                            "count": 100,
+                            "events": [],
+                            "actors": []
+                        },
+                        "order": 80
+                    },
+                    {
+                        "name": "Logs",
+                        "state": "log.list",
+                        "args": {
+                            "page": 1,
+                            "count": 100
+                        },
+                        "order": 90
+                    }
+                ]
+            }
+        },
+        "currentUser": {
+            "username": "cinq test user"
+        },
+        "resourceTypes": {}
+    },
+
+    "search": {
+        "resources": [],
+        "resourceCount": 0
+    }
+}
