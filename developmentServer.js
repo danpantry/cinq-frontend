@@ -31,7 +31,9 @@ const staticMetadata = {
     regions: [],
     notifiers: [],
     menuItems: {},
-    currentUser: {},
+    currentUser: {
+        username: 'cinq test user'
+    },
     resourceTypes: {}
 };
 
