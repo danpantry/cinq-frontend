@@ -2,13 +2,12 @@
 
 angular
     .module('cloud-inquisitor.directives')
-    .directive('sideMenu', SideMenuDirective)
-;
+    .directive('sideMenu', SideMenuDirective);
 
 function SideMenuDirective() {
     return {
         restrict: 'EA',
-        templateUrl: 'partials/menu.html',
+        template: require('../../html/partials/menu.html'),
         scope: true,
         controller: SideMenuController,
         controllerAs: 'vm',
@@ -28,7 +27,8 @@ function SideMenuController($cookies, $location) {
 
     //region Functions
     function load() {
-        const menuStates = $cookies.getObject('cloud-inquisitor-sidemenu') || {};
+        const menuStates =
+            $cookies.getObject('cloud-inquisitor-sidemenu') || {};
 
         for (const [groupName, state] of Object.entries(menuStates)) {
             for (const group of Object.values(vm.menuItems)) {
@@ -40,9 +40,14 @@ function SideMenuController($cookies, $location) {
     }
 
     function toggle(section) {
-        const menuStates = $cookies.getObject('cloud-inquisitor-sidemenu') || {};
+        const menuStates =
+            $cookies.getObject('cloud-inquisitor-sidemenu') || {};
         const now = new Date();
-        const exp = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+        const exp = new Date(
+            now.getFullYear() + 1,
+            now.getMonth(),
+            now.getDate()
+        );
         section.collapsed = !section.collapsed;
         menuStates[section.name] = section.collapsed;
         $cookies.putObject('cloud-inquisitor-sidemenu', menuStates, {

@@ -11,7 +11,7 @@ angular
         },
         controller: TemplateListController,
         controllerAs: 'vm',
-        templateUrl: 'templates/list.html'
+        template: require('./list.html')
     })
 ;
 

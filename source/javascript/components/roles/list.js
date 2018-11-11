@@ -10,7 +10,7 @@ angular
         },
         controller: RoleListController,
         controllerAs: 'vm',
-        templateUrl: 'roles/list.html'
+        template: require('./list.html')
     })
 ;
 

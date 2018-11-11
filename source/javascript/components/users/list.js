@@ -1,18 +1,15 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('userList', {
-        bindings: {
-            onUserDelete: '<',
-            params: '<',
-            result: '<'
-        },
-        controller: UserListController,
-        controllerAs: 'vm',
-        templateUrl: 'users/list.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('userList', {
+    bindings: {
+        onUserDelete: '<',
+        params: '<',
+        result: '<'
+    },
+    controller: UserListController,
+    controllerAs: 'vm',
+    template: require('./list.html')
+});
 
 UserListController.$inject = ['$mdDialog', 'Utils'];
 function UserListController($mdDialog, Utils) {
@@ -54,14 +51,14 @@ function UserListController($mdDialog, Utils) {
     }
 
     function editUser(userId) {
-        Utils.goto('user.edit', {userId: userId});
+        Utils.goto('user.edit', { userId: userId });
     }
 
     function changePassword(evt, user) {
         $mdDialog.show({
             controller: 'ChangePasswordController',
             controllerAs: 'vm',
-            templateUrl: 'partials/dialogs/changepassword.html',
+            template: require('../../../html/partials/dialogs/changepassword.html'),
             targetEvent: evt,
             clickOutsideToClose: false,
             parent: angular.element(document.body),
@@ -72,31 +69,33 @@ function UserListController($mdDialog, Utils) {
     }
 
     function deleteUser(evt, user) {
-        const confirm = $mdDialog.confirm()
+        const confirm = $mdDialog
+            .confirm()
             .title('Delete ' + user.username + '?')
-            .textContent('Are you absolutely sure you want to delete this user: ' + user.username + '?')
+            .textContent(
+                'Are you absolutely sure you want to delete this user: ' +
+                    user.username +
+                    '?'
+            )
             .ariaLabel('Confirm user deletion')
             .ok('Delete')
             .cancel('Cancel')
             .targetEvent(evt);
 
-        $mdDialog
-            .show(confirm)
-            .then(() => {
-                vm.onUserDelete(
-                    {
-                        userId: user.userId
-                    },
-                    response => {
-                        $(['#user', user.userId].join('-')).remove();
-                        Utils.toast(response.message, 'success');
-                    },
-                    response => {
-                        Utils.toast(response.message, 'error');
-                    }
-                );
-            })
-        ;
+        $mdDialog.show(confirm).then(() => {
+            vm.onUserDelete(
+                {
+                    userId: user.userId
+                },
+                response => {
+                    $(['#user', user.userId].join('-')).remove();
+                    Utils.toast(response.message, 'success');
+                },
+                response => {
+                    Utils.toast(response.message, 'error');
+                }
+            );
+        });
     }
 
     function updateFilters(data) {

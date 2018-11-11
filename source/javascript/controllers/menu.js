@@ -2,11 +2,26 @@
 
 angular
     .module('cloud-inquisitor.controllers')
-    .controller('MenuController', MenuController)
-;
+    .controller('MenuController', MenuController);
 
-MenuController.$inject = ['$rootScope', '$scope', '$state', '$mdSidenav', '$mdDialog', 'MetadataService', 'Utils'];
-function MenuController($rootScope, $scope, $state, $mdSidenav, $mdDialog, MetadataService, Utils) {
+MenuController.$inject = [
+    '$rootScope',
+    '$scope',
+    '$state',
+    '$mdSidenav',
+    '$mdDialog',
+    'MetadataService',
+    'Utils'
+];
+function MenuController(
+    $rootScope,
+    $scope,
+    $state,
+    $mdSidenav,
+    $mdDialog,
+    MetadataService,
+    Utils
+) {
     const vm = this;
     let originatorEv;
 
@@ -27,7 +42,7 @@ function MenuController($rootScope, $scope, $state, $mdSidenav, $mdDialog, Metad
 
     //region Functions
     function load() {
-        for (const [k,v] of Object.entries(MetadataService.menuItems)) {
+        for (const [k, v] of Object.entries(MetadataService.menuItems)) {
             vm.menuItems[k] = v;
         }
         vm.currentUser = MetadataService.currentUser;
@@ -64,7 +79,7 @@ function MenuController($rootScope, $scope, $state, $mdSidenav, $mdDialog, Metad
         $mdDialog.show({
             controller: 'ChangePasswordController',
             controllerAs: 'vm',
-            templateUrl: 'partials/dialogs/changepassword.html',
+            template: require('../../html/partials/dialogs/changepassword.html'),
             targetEvent: evt,
             clickOutsideToClose: false,
             parent: angular.element(document.body),

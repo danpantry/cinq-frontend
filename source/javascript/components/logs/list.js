@@ -9,7 +9,7 @@ angular
         },
         controller: LogListController,
         controllerAs: 'vm',
-        templateUrl: 'logs/list.html'
+        template: require('./list.html')
     })
 ;
 

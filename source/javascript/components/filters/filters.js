@@ -11,7 +11,7 @@ angular
         },
         controller: FilterController,
         controllerAs: 'vm',
-        templateUrl: 'filters/filters.html'
+        template: require('./filters.html')
     })
 ;
 

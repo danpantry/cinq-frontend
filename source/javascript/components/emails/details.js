@@ -10,7 +10,7 @@ angular
         },
         controller: EmailDetailsController,
         controllerAs: 'vm',
-        templateUrl: 'emails/details.html'
+        template: require('./details.html')
     })
 ;
 

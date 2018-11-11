@@ -9,7 +9,7 @@ angular
         },
         controller: RequiredTagsController,
         controllerAs: 'vm',
-        templateUrl: 'requiredtags/list.html'
+        template: require('./list.html')
     })
 ;
 

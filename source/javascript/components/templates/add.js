@@ -8,7 +8,7 @@ angular
         },
         controller: TemplateAddController,
         controllerAs: 'vm',
-        templateUrl: 'templates/add.html'
+        template: require('./add.html')
     })
 ;
 

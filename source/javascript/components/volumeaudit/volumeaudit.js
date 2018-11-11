@@ -9,7 +9,7 @@ angular
         },
         controller: VolumeAuditController,
         controllerAs: 'vm',
-        templateUrl: 'volumeaudit/list.html'
+        template: require('./list.html')
     })
 ;
 

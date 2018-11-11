@@ -9,7 +9,7 @@ angular
         },
         controller: VpcListController,
         controllerAs: 'vm',
-        templateUrl: 'vpc/list.html'
+        template: require('./list.html')
     })
 ;
 

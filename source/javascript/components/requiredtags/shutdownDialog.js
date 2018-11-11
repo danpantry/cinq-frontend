@@ -10,7 +10,7 @@ angular
         },
         controller: RequiredTagsShutdownDialogController,
         controllerAs: 'vm',
-        templateUrl: 'requiredtags/shutdown.html'
+        template: require('./shutdown.html')
     })
 ;
 

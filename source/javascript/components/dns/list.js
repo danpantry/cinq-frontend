@@ -9,7 +9,7 @@ angular
         },
         controller: DNSZoneListController,
         controllerAs: 'vm',
-        templateUrl: 'dns/list.html'
+        template: require('./list.html')
     })
 ;
 

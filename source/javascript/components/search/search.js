@@ -77,7 +77,7 @@ function SearchController($mdDialog, $document, Utils, MetadataService) {
         $mdDialog.show({
             controller: HelpController,
             controllerAs: 'hvm',
-            templateUrl: 'search/help.html',
+            template: require('./help.html'),
             parent: angular.element($document.body),
             targetEvent: ev,
             clickOutsideToClose: true

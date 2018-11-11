@@ -10,7 +10,7 @@ angular
         },
         controller: NamespaceEditController,
         controllerAs: 'vm',
-        templateUrl: 'configuration/namespaceEdit.html'
+        template: require('./namespaceEdit.html')
     })
 ;
 

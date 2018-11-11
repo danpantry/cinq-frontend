@@ -10,7 +10,7 @@ angular
         },
         controller: RoleEditController,
         controllerAs: 'vm',
-        templateUrl: 'roles/edit.html'
+        template: require('./edit.html')
     })
 ;
 

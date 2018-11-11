@@ -10,7 +10,7 @@ angular
         },
         controller: UserEditController,
         controllerAs: 'vm',
-        templateUrl: 'users/edit.html'
+        template: require('./edit.html')
     })
 ;
 

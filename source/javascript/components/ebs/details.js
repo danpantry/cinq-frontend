@@ -8,7 +8,7 @@ angular
         },
         controller: EBSDetailsController,
         controllerAs: 'vm',
-        templateUrl: 'ebs/details.html'
+        template: require('./details.html')
     })
 ;
 

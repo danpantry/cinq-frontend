@@ -9,7 +9,7 @@ angular
         },
         controller: InstanceListController,
         controllerAs: 'vm',
-        templateUrl: 'instances/list.html'
+        template: require('./list.html')
     })
 ;
 

@@ -9,7 +9,7 @@ angular
         },
         controller: AuditLogDetailsController,
         controllerAs: 'vm',
-        templateUrl: 'auditlog/details.html'
+        template: require('./details.html')
     })
 ;
 

@@ -8,7 +8,7 @@ angular
         },
         controller: RoleAddController,
         controllerAs: 'vm',
-        templateUrl: 'roles/add.html'
+        template: require('./add.html')
     })
 ;
 

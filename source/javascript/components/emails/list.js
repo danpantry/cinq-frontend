@@ -9,7 +9,7 @@ angular
         },
         controller: EmailListController,
         controllerAs: 'vm',
-        templateUrl: 'emails/list.html'
+        template: require('./list.html')
     })
 ;
 

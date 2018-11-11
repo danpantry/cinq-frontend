@@ -9,7 +9,7 @@ angular
         },
         controller: S3ListController,
         controllerAs: 'vm',
-        templateUrl: 's3/list.html'
+        template: require('./list.html')
     })
 ;
 

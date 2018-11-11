@@ -9,7 +9,7 @@ angular
         },
         controller: InstanceDetailsController,
         controllerAs: 'vm',
-        templateUrl: 'instances/details.html'
+        template: require('./details.html')
     })
 ;
 

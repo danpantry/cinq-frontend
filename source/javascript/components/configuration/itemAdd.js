@@ -10,7 +10,7 @@ angular
         },
         controller: ConfigItemAddController,
         controllerAs: 'vm',
-        templateUrl: 'configuration/itemAdd.html'
+        template: require('./itemAdd.html')
     })
 ;
 

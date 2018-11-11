@@ -17,7 +17,7 @@ function config($stateProvider, $urlServiceProvider) {
                     template: '<ui-view />'
                 },
                 sidebar: {
-                    templateUrl: 'partials/sidebar.html',
+                    template: require('../html/partials/sidebar.html'),
                     controllerAs: 'vm'
                 }
             }
@@ -259,19 +259,19 @@ function config($stateProvider, $urlServiceProvider) {
         // This route is used for username and password authentication
         .state('auth.login', {
             url: '/login',
-            templateUrl: 'partials/auth/login.html',
+            template: require('../html/partials/auth/login.html'),
             controller: 'LoginController',
             controllerAs: 'vm'
         })
         .state('auth.authenticate', {
             url: '/authenticate/:authToken/:csrfToken',
-            templateUrl: 'partials/auth/auth.html',
+            template: require('../html/partials/auth/auth.html'),
             controller: 'AuthenticateController',
             controllerAs: 'vm'
         })
         .state('auth.logout', {
             url: '/logout',
-            templateUrl: 'partials/auth/logout.html',
+            template: require('../html/partials/auth/logout.html'),
             controller: 'LogoutController',
             controllerAs: 'vm'
         })

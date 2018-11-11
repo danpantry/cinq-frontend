@@ -9,7 +9,7 @@ angular
         },
         controller: EBSListController,
         controllerAs: 'vm',
-        templateUrl: 'ebs/list.html'
+        template: require('./list.html')
     })
 ;
 

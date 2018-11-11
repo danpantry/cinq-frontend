@@ -10,7 +10,7 @@ angular
         },
         controller: ConfigEditController,
         controllerAs: 'vm',
-        templateUrl: 'configuration/itemEdit.html'
+        template: require('./itemEdit.html')
     })
 ;
 

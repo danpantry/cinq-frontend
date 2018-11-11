@@ -9,7 +9,7 @@ angular
         },
         controller: DomainHijackingController,
         controllerAs: 'vm',
-        templateUrl: 'domainhijacking/list.html'
+        template: require('./list.html')
     })
 ;
 

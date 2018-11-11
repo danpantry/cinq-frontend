@@ -9,7 +9,7 @@ angular
         },
         controller: InstanceAgeController,
         controllerAs: 'vm',
-        templateUrl: 'instanceage/list.html'
+        template: require('./list.html')
     })
 ;
 

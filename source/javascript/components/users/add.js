@@ -9,7 +9,7 @@ angular
         },
         controller: UserAddController,
         controllerAs: 'vm',
-        templateUrl: 'users/add.html'
+        template: require('./add.html')
     })
 ;
 

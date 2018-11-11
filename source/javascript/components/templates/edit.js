@@ -10,7 +10,7 @@ angular
         },
         controller: TemplateEditController,
         controllerAs: 'vm',
-        templateUrl: 'templates/edit.html'
+        template: require('./edit.html')
     })
 ;
 

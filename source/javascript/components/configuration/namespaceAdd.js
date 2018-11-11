@@ -8,7 +8,7 @@ angular
         },
         controller: NamespaceAddController,
         controllerAs: 'vm',
-        templateUrl: 'configuration/namespaceAdd.html'
+        template: require('./namespaceAdd.html')
     })
 ;
 

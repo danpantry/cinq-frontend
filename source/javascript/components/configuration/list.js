@@ -10,7 +10,7 @@ angular
         },
         controller: ConfigListController,
         controllerAs: 'vm',
-        templateUrl: 'configuration/list.html'
+        template: require('./list.html')
     })
 ;
 
