@@ -1,17 +1,14 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('accountList', {
-        bindings: {
-            result: '<',
-            onAccountDelete: '<'
-        },
-        controller: AccountListController,
-        controllerAs: 'vm',
-        templateUrl: 'accounts/list.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('accountList', {
+    bindings: {
+        result: '<',
+        onAccountDelete: '<'
+    },
+    controller: AccountListController,
+    controllerAs: 'vm',
+    template: require('./list.html')
+});
 
 AccountListController.$inject = ['$mdDialog', 'Utils'];
 function AccountListController($mdDialog, Utils) {
@@ -33,7 +30,7 @@ function AccountListController($mdDialog, Utils) {
     }
 
     function showDetails(accountId) {
-        Utils.goto('account.details', {accountId: accountId});
+        Utils.goto('account.details', { accountId: accountId });
     }
 
     function onLoadSuccess(response) {
@@ -41,20 +38,27 @@ function AccountListController($mdDialog, Utils) {
     }
 
     function deleteAccount(evt, acct) {
-        const confirm = $mdDialog.confirm()
+        const confirm = $mdDialog
+            .confirm()
             .title('Delete ' + acct.accountName + '?')
-            .textContent('Are you absolutely sure you want to delete the account ' +
-                acct.accountName + '?')
+            .textContent(
+                'Are you absolutely sure you want to delete the account ' +
+                    acct.accountName +
+                    '?'
+            )
             .ariaLabel('Confirm account deletion')
             .ok('Delete')
             .cancel('Cancel')
-            .targetEvent(evt)
-        ;
+            .targetEvent(evt);
 
         $mdDialog.show(confirm).then(performDelete);
 
         function performDelete() {
-            vm.onAccountDelete({accountId: acct.accountId}, onDeleteSuccess, onDeleteFailure);
+            vm.onAccountDelete(
+                { accountId: acct.accountId },
+                onDeleteSuccess,
+                onDeleteFailure
+            );
         }
 
         function onDeleteSuccess() {
@@ -68,7 +72,7 @@ function AccountListController($mdDialog, Utils) {
     }
 
     function edit(acct) {
-        Utils.goto('account.edit', {accountId: acct.accountId});
+        Utils.goto('account.edit', { accountId: acct.accountId });
     }
 
     function accountTypeLabel(type) {

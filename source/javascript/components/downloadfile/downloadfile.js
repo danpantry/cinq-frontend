@@ -14,15 +14,18 @@ angular
         },
         controller: FileDownloadController,
         controllerAs: 'vm',
-        templateUrl: 'downloadfile/button.html'
+        template: require('./button.html')
     })
     .constant('DLFILE_SUPPORTED_FORMATS', [
-        {type: 'json', name: 'JSON'},
-        {type: 'xlsx', name: 'Excel (xlsx)'},
-    ])
-;
+        { type: 'json', name: 'JSON' },
+        { type: 'xlsx', name: 'Excel (xlsx)' }
+    ]);
 
-FileDownloadController.$inject = ['$mdDialog', 'Utils', 'DLFILE_SUPPORTED_FORMATS'];
+FileDownloadController.$inject = [
+    '$mdDialog',
+    'Utils',
+    'DLFILE_SUPPORTED_FORMATS'
+];
 function FileDownloadController($mdDialog, Utils, DLFILE_SUPPORTED_FORMATS) {
     const vm = this;
     vm.icon = vm.icon || 'file_download';
@@ -35,14 +38,16 @@ function FileDownloadController($mdDialog, Utils, DLFILE_SUPPORTED_FORMATS) {
         });
 
         if (fileFormats.length === 0) {
-            Utils.toast('No supported file formats found, unable to download file');
+            Utils.toast(
+                'No supported file formats found, unable to download file'
+            );
             return;
         }
 
         $mdDialog.show({
             controller: FileDownloadDialogController,
             controllerAs: 'vm',
-            templateUrl: 'downloadfile/dialog.html',
+            template: require('./dialog.html'),
             targetEvent: evt,
             clickOutsideToClose: true,
             parent: angular.element(document.body),
@@ -59,7 +64,12 @@ function FileDownloadController($mdDialog, Utils, DLFILE_SUPPORTED_FORMATS) {
     }
 }
 
-FileDownloadDialogController.$inject = ['$mdDialog', '$http', '$rootScope', 'params'];
+FileDownloadDialogController.$inject = [
+    '$mdDialog',
+    '$http',
+    '$rootScope',
+    'params'
+];
 function FileDownloadDialogController($mdDialog, $http, $rootScope, params) {
     const vm = this;
     vm.form = {
@@ -94,7 +104,9 @@ function FileDownloadDialogController($mdDialog, $http, $rootScope, params) {
 
     function onDownloadSuccess(response) {
         $rootScope.$emit('download-complete', response.data);
-        $('#dlMessages').text('Your download is ready, click the Save button below to retrieve the file');
+        $('#dlMessages').text(
+            'Your download is ready, click the Save button below to retrieve the file'
+        );
     }
 
     function onDownloadFailure(response) {
@@ -122,12 +134,13 @@ function FileDownloadDialogController($mdDialog, $http, $rootScope, params) {
                 link.click();
                 document.body.removeChild(link);
                 $mdDialog.hide();
-            })
-        ;
+            });
     }
 
     function downloadFailed(event, message) {
-        $('#dlMessages').text('An error occured while preparing your download.<br />Please try again later');
+        $('#dlMessages').text(
+            'An error occured while preparing your download.<br />Please try again later'
+        );
     }
     //endregion
 }

@@ -1,24 +1,21 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('accountEdit', {
-        bindings: {
-            params: '<',
-            result: '<',
-            onAccountUpdate: '<'
-        },
-        controller: AccountEditController,
-        controllerAs: 'vm',
-        templateUrl: 'accounts/edit.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('accountEdit', {
+    bindings: {
+        params: '<',
+        result: '<',
+        onAccountUpdate: '<'
+    },
+    controller: AccountEditController,
+    controllerAs: 'vm',
+    template: require('./edit.html')
+});
 
 AccountEditController.$inject = ['Utils', 'MetadataService', '$mdDialog'];
 function AccountEditController(Utils, MetadataService, $mdDialog) {
     const vm = this;
     // @type {Account}
-    vm.account = {requiredRoles: [ ]};
+    vm.account = { requiredRoles: [] };
     vm.accountTypes = MetadataService.accountTypes;
     vm.update = update;
     vm.goto = Utils.goto;
@@ -34,13 +31,15 @@ function AccountEditController(Utils, MetadataService, $mdDialog) {
     function onLoadSuccess(response) {
         vm.account = response.account;
         if (!vm.account.requiredRoles) {
-            vm.account.requiredRoles = [ ];
+            vm.account.requiredRoles = [];
         }
     }
 
     function onUpdateSuccess(response) {
         Utils.toast('Account has been updated', 'success');
-        Utils.goto('account.details', {accountId: response.account.accountId});
+        Utils.goto('account.details', {
+            accountId: response.account.accountId
+        });
     }
 
     function update() {
@@ -54,12 +53,12 @@ function AccountEditController(Utils, MetadataService, $mdDialog) {
         let dlg = {
             controller: AccountContactAddController,
             controllerAs: 'vm',
-            templateUrl: 'accounts/addcontact.html',
+            template: require('./addcontact.html'),
             clickOutsideToClose: true,
             parent: angular.element(document.body),
             locals: {
                 params: {
-                    accountName: vm.account.accountName,
+                    accountName: vm.account.accountName
                 }
             }
         };
@@ -74,7 +73,10 @@ function AccountEditController(Utils, MetadataService, $mdDialog) {
                                 value: chip
                             });
                         } else {
-                            Utils.toast('Invalid formatted contact for ' + result, 'error');
+                            Utils.toast(
+                                'Invalid formatted contact for ' + result,
+                                'error'
+                            );
                         }
                         return;
                     }
@@ -90,7 +92,11 @@ function AccountEditController(Utils, MetadataService, $mdDialog) {
     //endregion
 }
 
-AccountContactAddController.$inject = ['$mdDialog', 'MetadataService', 'params'];
+AccountContactAddController.$inject = [
+    '$mdDialog',
+    'MetadataService',
+    'params'
+];
 function AccountContactAddController($mdDialog, MetadataService, params) {
     const vm = this;
     vm.form = {

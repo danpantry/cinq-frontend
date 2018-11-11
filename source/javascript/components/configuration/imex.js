@@ -1,19 +1,16 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('configImportExport', {
-        bindings: {
-            onImport: '<',
-            onExport: '<',
-            params: '<',
-            result: '<'
-        },
-        controller: ConfigImportExportController,
-        controllerAs: 'vm',
-        templateUrl: 'configuration/imex.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('configImportExport', {
+    bindings: {
+        onImport: '<',
+        onExport: '<',
+        params: '<',
+        result: '<'
+    },
+    controller: ConfigImportExportController,
+    controllerAs: 'vm',
+    template: require('./imex.html')
+});
 
 ConfigImportExportController.$inject = ['$scope', 'Utils', '$mdDialog'];
 function ConfigImportExportController($scope, Utils, $mdDialog) {
@@ -58,7 +55,10 @@ function ConfigImportExportController($scope, Utils, $mdDialog) {
             const f = files[0];
 
             if (f.type !== 'application/json') {
-                Utils.toast('Invalid file type, only supports .json files', 'error');
+                Utils.toast(
+                    'Invalid file type, only supports .json files',
+                    'error'
+                );
                 return;
             }
 
@@ -77,9 +77,12 @@ function ConfigImportExportController($scope, Utils, $mdDialog) {
     }
 
     function importConfig() {
-        const confirm = $mdDialog.confirm()
+        const confirm = $mdDialog
+            .confirm()
             .title('Import configuration')
-            .textContent('Are you sure you want to import this configuration. Any ')
+            .textContent(
+                'Are you sure you want to import this configuration. Any '
+            )
             .ariaLabel('Import configuration')
             .ok('Import')
             .cancel('Cancel');

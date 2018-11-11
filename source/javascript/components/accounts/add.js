@@ -1,16 +1,13 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('accountAdd', {
-        bindings: {
-            onAccountCreate: '<'
-        },
-        controller: AccountAddController,
-        controllerAs: 'vm',
-        templateUrl: 'accounts/add.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('accountAdd', {
+    bindings: {
+        onAccountCreate: '<'
+    },
+    controller: AccountAddController,
+    controllerAs: 'vm',
+    template: require('./add.html')
+});
 
 AccountAddController.$inject = ['$mdDialog', 'Utils', 'MetadataService'];
 function AccountAddController($mdDialog, Utils, MetadataService) {
@@ -19,10 +16,10 @@ function AccountAddController($mdDialog, Utils, MetadataService) {
     vm.account = {
         accountName: undefined,
         accountType: undefined,
-        contacts: [ ],
+        contacts: [],
         enabled: true,
-        requiredRoles: [ ],
-        properties: {},
+        requiredRoles: [],
+        properties: {}
     };
     vm.accountTypes = MetadataService.accountTypes;
     vm.onChipAdd = onChipAdd;
@@ -44,14 +41,17 @@ function AccountAddController($mdDialog, Utils, MetadataService) {
         if (vm.account.contacts.length === 0) {
             Utils.toast('Contacts cannot be empty', 'error');
         } else {
-            const accountInfo = Object.assign({}, vm.account, {enabled: vm.account.enabled ? 1 : 0});
+            const accountInfo = Object.assign({}, vm.account, {
+                enabled: vm.account.enabled ? 1 : 0
+            });
             vm.onAccountCreate(accountInfo, onAddSuccess, onAddFailure);
         }
     }
 
     function onAccountTypeChange() {
         vm.account.properties = {};
-        const properties = vm.getAccountTypeProperties();
+        // This may sometimes return 'undefined' for unknown reasons
+        const properties = vm.getAccountTypeProperties() || [];
         for (let prop of properties) {
             vm.account.properties[prop.key] = prop.default;
         }
@@ -61,12 +61,12 @@ function AccountAddController($mdDialog, Utils, MetadataService) {
         let dlg = {
             controller: AccountContactAddController,
             controllerAs: 'vm',
-            templateUrl: 'accounts/addcontact.html',
+            template: require('./addcontact.html'),
             clickOutsideToClose: true,
             parent: angular.element(document.body),
             locals: {
                 params: {
-                    accountName: vm.account.accountName,
+                    accountName: vm.account.accountName
                 }
             }
         };
@@ -81,7 +81,10 @@ function AccountAddController($mdDialog, Utils, MetadataService) {
                                 value: chip
                             });
                         } else {
-                            Utils.toast('Invalid formatted contact for ' + result, 'error');
+                            Utils.toast(
+                                'Invalid formatted contact for ' + result,
+                                'error'
+                            );
                         }
                         return;
                     }
@@ -97,7 +100,11 @@ function AccountAddController($mdDialog, Utils, MetadataService) {
     //endregion
 }
 
-AccountContactAddController.$inject = ['$mdDialog', 'MetadataService', 'params'];
+AccountContactAddController.$inject = [
+    '$mdDialog',
+    'MetadataService',
+    'params'
+];
 function AccountContactAddController($mdDialog, MetadataService, params) {
     const vm = this;
     vm.form = {

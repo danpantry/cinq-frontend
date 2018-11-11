@@ -1,19 +1,16 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('accountImportExport', {
-        bindings: {
-            onImport: '<',
-            onExport: '<',
-            params: '<',
-            result: '<'
-        },
-        controller: AccountImportExportController,
-        controllerAs: 'vm',
-        templateUrl: 'accounts/imex.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('accountImportExport', {
+    bindings: {
+        onImport: '<',
+        onExport: '<',
+        params: '<',
+        result: '<'
+    },
+    controller: AccountImportExportController,
+    controllerAs: 'vm',
+    template: require('./imex.html')
+});
 
 AccountImportExportController.$inject = ['$scope', 'Utils', '$mdDialog'];
 function AccountImportExportController($scope, Utils, $mdDialog) {
@@ -57,7 +54,10 @@ function AccountImportExportController($scope, Utils, $mdDialog) {
             const f = files[0];
 
             if (f.type !== 'application/json') {
-                Utils.toast('Invalid file type, only supports .json files', 'error');
+                Utils.toast(
+                    'Invalid file type, only supports .json files',
+                    'error'
+                );
                 return;
             }
 
@@ -71,7 +71,8 @@ function AccountImportExportController($scope, Utils, $mdDialog) {
     }
 
     function importAccounts() {
-        const confirm = $mdDialog.confirm()
+        const confirm = $mdDialog
+            .confirm()
             .title('Import account')
             .textContent(
                 'Are you sure you want to import these accounts. Any existing conflicting accounts will be overridden'

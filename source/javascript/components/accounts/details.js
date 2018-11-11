@@ -1,17 +1,14 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.components')
-    .component('accountDetails', {
-        bindings: {
-            params: '<',
-            result: '<'
-        },
-        controller: AccountDetailsController,
-        controllerAs: 'vm',
-        templateUrl: 'accounts/details.html'
-    })
-;
+angular.module('cloud-inquisitor.components').component('accountDetails', {
+    bindings: {
+        params: '<',
+        result: '<'
+    },
+    controller: AccountDetailsController,
+    controllerAs: 'vm',
+    template: require('./details.html')
+});
 
 AccountDetailsController.$inject = ['Utils', 'MetadataService'];
 function AccountDetailsController(Utils, MetadataService) {

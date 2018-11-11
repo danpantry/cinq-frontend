@@ -19,10 +19,27 @@
     },
     "metadata": {
         "accounts": [],
-        "accountTypes": [],
+        "accountTypes": [
+            {
+                "name": "AWS",
+                "properties": []
+            },
+            {
+                "name": "DNS: CloudFlare",
+                "properties": []
+            },
+            {
+                "name": "DNS: AXFR",
+                "properties": []
+            }
+        ],
         "regions": [],
-        "notifiers": [],
-
+        "notifiers": [
+            {
+                "type": "Dummy Notification Type",
+                "validation": ".*"
+            }
+        ],
         "menuItems": {
             "default": {
                 "order": 10,
@@ -131,9 +148,12 @@
         },
         "resourceTypes": {}
     },
-
     "search": {
         "resources": [],
         "resourceCount": 0
+    },
+
+    "account": {
+        "accounts": []
     }
 }
