@@ -2,8 +2,7 @@
 
 angular
     .module('cloud-inquisitor.services')
-    .service('MetadataService', MetadataService)
-;
+    .service('MetadataService', MetadataService);
 
 MetadataService.$inject = ['$http', '$rootScope', 'Utils', 'API_PATH'];
 

@@ -1,16 +1,13 @@
 'use strict';
 
-angular
-    .module('cloud-inquisitor.controllers')
-    .component('dashboard', {
-        bindings: {
-            result: '<'
-        },
-        controller: DashboardController,
-        controllerAs: 'vm',
-        templateUrl: 'dashboard/dashboard.html'
-    })
-;
+angular.module('cloud-inquisitor.controllers').component('dashboard', {
+    bindings: {
+        result: '<'
+    },
+    controller: DashboardController,
+    controllerAs: 'vm',
+    template: require('./dashboard.html')
+});
 
 DashboardController.$inject = ['Utils'];
 function DashboardController(Utils) {
