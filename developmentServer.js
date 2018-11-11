@@ -26,15 +26,13 @@ app.post('/auth/local/login', (_, res) => {
 });
 
 const staticMetadata = {
-    data: {
-        accounts: [],
-        accountTypes: [],
-        regions: [],
-        notifiers: [],
-        menuItems: {},
-        currentUser: {},
-        resourceTypes: {}
-    }
+    accounts: [],
+    accountTypes: [],
+    regions: [],
+    notifiers: [],
+    menuItems: {},
+    currentUser: {},
+    resourceTypes: {}
 };
 
 app.use('/api/v1/metadata', (_, res) => res.json(staticMetadata));
